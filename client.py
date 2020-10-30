@@ -46,7 +46,7 @@ try:
         content = json.dumps(content)
         x = requests.get(url, data = content, headers=headers)
         open(f"attestation_{datetime.today()}_{datetime.today().hour}-{datetime.today().minute}-{datetime.today().second}.pdf", 'wb').write(x.content)
-        print(f"\n\nL'attestation a bien été sauvegardée dans {os.getcwd}/attestation_{datetime.today()}_{datetime.today().hour}-{datetime.today().minute}-{datetime.today().second}.pdf")
+        print(f"\n\nL'attestation a bien été sauvegardée dans {os.getcwd()}/attestation_{datetime.today()}_{datetime.today().hour}-{datetime.today().minute}-{datetime.today().second}.pdf")
     except:
         print("\n\nUne erreur est survenue.")
 except:
