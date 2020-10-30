@@ -110,9 +110,9 @@ def generate():
             k = 1
         else:
             motifs = f"{motifs}, {motif}"
-    file_name_gen = f"add_{datetime.today()}_{datetime.today().hour}-{datetime.today().minute}-{datetime.today().second}"
+    file_name_gen = "result"
     to_parse_data = f"Cree le: {creation};\n Nom: {nom};\n Prenom: {prenom};\n Naissance: {naissance};\n Adresse: {adresse};\n Sortie: {sortie};\n Motifs: {motifs}"
-    os.system(f'qr --factory=pymaging "{to_parse_data}" > results/{file_name_gen}.png')
+    os.system(f'qr --factory=pymaging "{to_parse_data}" > "{os.getcwd()}/results/{file_name_gen}.png"')
     prepare_html(creation=creation, nom=nom, prenom=prenom, date_naissance=date_naissance, lieu_naissance=lieu_naissance, ville=ville, adresse=adresse, date_sortie=date_sortie, heure_sortie=heure_sortie, motifs=motifs_list, file_name_gen=file_name_gen)
     pdf = weasyprint.HTML(f'results/{file_name_gen}.html').write_pdf()
     open(f'results/{file_name_gen}.pdf', 'wb').write(pdf)
