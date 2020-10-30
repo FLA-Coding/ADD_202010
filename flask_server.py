@@ -84,10 +84,12 @@ os.system('mkdir results/')
 
 @app.route("/test")
 def test():
+    print(f"/test - {flask.request.remote_addr}")
     return "The server is up."
 
 @app.route("/generate")
 def generate():
+    print(f"/generate - {flask.request.remote_addr}")
     json = flask.request.json
     creation = f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year} a {datetime.today().hour}h{datetime.today().minute}"
     nom = json["nom"]
