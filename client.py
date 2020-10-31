@@ -40,14 +40,11 @@ if enfants == "x":
     liste_motifs.append("enfants")
 try:
     url = 'http://82.65.106.58:36500/generate'
-    try:
-        content = {"prenom": prenom, "nom": nom, "date_naissance": date_naissance, "lieu_naissance": lieu_naissance, "adresse": adresse, "ville": ville, "cp": cp, "date_sortie": f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}", "heure_sortie": f"{datetime.today().hour}:{datetime.today().minute}", "motifs": liste_motifs}
-        headers = {"Content-Type": "application/json"}
-        content = json.dumps(content)
-        x = requests.get(url, data = content, headers=headers)
-        open(f"attestation_{datetime.today()}_{datetime.today().hour}-{datetime.today().minute}-{datetime.today().second}.pdf", 'wb').write(x.content)
-        print(f"\n\nL'attestation a bien été sauvegardée dans {os.getcwd()}/attestation_{datetime.today()}_{datetime.today().hour}-{datetime.today().minute}-{datetime.today().second}.pdf")
-    except:
-        print("\n\nUne erreur est survenue.")
+    content = {"prenom": prenom, "nom": nom, "date_naissance": date_naissance, "lieu_naissance": lieu_naissance, "adresse": adresse, "ville": ville, "cp": cp, "date_sortie": f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}", "heure_sortie": f"{datetime.today().hour}:{datetime.today().minute}", "motifs": liste_motifs}
+    headers = {"Content-Type": "application/json"}
+    content = json.dumps(content)
+    x = requests.get(url, data=content, headers=headers)
+    open(f"attestation_{datetime.today()}_{datetime.today().hour}-{datetime.today().minute}-{datetime.today().second}.pdf", 'wb').write(x.content)
+    print(f"\n\nL'attestation a bien été sauvegardée dans {os.getcwd()}/attestation_{datetime.today()}_{datetime.today().hour}-{datetime.today().minute}-{datetime.today().second}.pdf")
 except:
-    print("\n\nUne erreur est survenue. Le serveur est inaccessible.")
+    print("\n\nUne erreur est survenue.")
