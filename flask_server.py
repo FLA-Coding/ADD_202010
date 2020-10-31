@@ -103,6 +103,7 @@ def generate():
     heure_sortie = json["heure_sortie"]
     sortie = f"{json['date_sortie']} a {json['heure_sortie']}"
     motifs_list = json["motifs"]
+    motif = None
     k = 0
     for motif in json["motifs"]:
         if k == 0:
