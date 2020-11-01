@@ -46,8 +46,8 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
         headers = {"Content-Type": "application/json"}
         content = json.dumps(content)
         x = requests.get(url, data=content, headers=headers)
-        open(f"attestation_{datetime.today()}_{datetime.today().hour}-{datetime.today().minute}-{datetime.today().second}.pdf", 'wb').write(x.content)
-        messagebox.showinfo("Sauvegardé", f"L'attestation a bien été sauvegardée dans {os.getcwd()}/attestation_{datetime.today()}_{datetime.today().hour}-{datetime.today().minute}-{datetime.today().second}.pdf")
+        open(f"attestation_{datetime.today().hour}h{datetime.today().minute}.pdf", 'wb').write(x.content)
+        messagebox.showinfo("Sauvegardé", f"L'attestation a bien été sauvegardée dans {os.getcwd()}/attestation_{datetime.today().hour}h{datetime.today().minute}.pdf")
         tkWindow.destroy()
     except:
         messagebox.showerror("Erreur", "Une erreur est survenue.")
