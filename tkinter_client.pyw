@@ -60,7 +60,7 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
 tkWindow = Tk()  
 tkWindow.geometry('600x650')  
 tkWindow.resizable(width=True, height=True)
-tkWindow.title('Générateur d\'attestationd de déplacement dérogatoire')
+tkWindow.title('Générateur d\'attestation de déplacement dérogatoire')
 
 #prenom label and text entry box
 prenomLabel = Label(tkWindow, text="Prénom :", wraplength=450).grid(sticky='e', row=0, column=0)
