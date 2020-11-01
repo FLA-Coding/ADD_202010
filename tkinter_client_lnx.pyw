@@ -46,8 +46,9 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
         headers = {"Content-Type": "application/json"}
         content = json.dumps(content)
         x = requests.get(url, data=content, headers=headers)
-        open(f"attestation_{datetime.today().hour}h{datetime.today().minute}.pdf", 'wb').write(x.content)
-        messagebox.showinfo("Sauvegardé", f"L'attestation a bien été sauvegardée dans {os.getcwd()}/attestation_{datetime.today().hour}h{datetime.today().minute}.pdf")
+        home = os.getenv('HOME')
+        open(f"{home}/Desktop/attestation_{datetime.today().hour}h{datetime.today().minute}.pdf", 'wb').write(x.content)
+        messagebox.showinfo("Sauvegardé", f"L'attestation a bien été sauvegardée sur votre bureau sous le nom « attestation_{datetime.today().hour}h{datetime.today().minute}.pdf »")
         tkWindow.destroy()
     except:
         messagebox.showerror("Erreur", "Une erreur est survenue.")
@@ -64,37 +65,37 @@ tkWindow.title('Générateur d\'attestation de déplacement dérogatoire')
 
 #prenom label and text entry box
 prenomLabel = Label(tkWindow, text="Prénom :", wraplength=450).grid(sticky='e', row=0, column=0)
-prenom = StringVar(value='Firmin')
+prenom = StringVar()
 prenomEntry = Entry(tkWindow, textvariable=prenom).grid(row=0, column=1)  
 
 #nom label and password entry box
 nomLabel = Label(tkWindow, text="Nom :", wraplength=450).grid(sticky='e', row=1, column=0)
-nom = StringVar(value='Launay')
+nom = StringVar()
 nomEntry = Entry(tkWindow, textvariable=nom).grid(row=1, column=1)  
 
 #date_naissance label and url entry box
 date_naissanceLabel = Label(tkWindow, text="Date de naissance (JJ/MM/AAAA) :", wraplength=450).grid(sticky='e', row=2, column=0)  
-date_naissance = StringVar(value='18/08/2004')
+date_naissance = StringVar()
 date_naissanceEntry = Entry(tkWindow, textvariable=date_naissance).grid(row=2, column=1)  
 
 #lieu_naissance label and url entry box
 lieu_naissanceLabel = Label(tkWindow, text="Lieu de naissance :", wraplength=450).grid(sticky='e', row=3, column=0)  
-lieu_naissance = StringVar(value='Saint-Maurice')
+lieu_naissance = StringVar()
 lieu_naissanceEntry = Entry(tkWindow, textvariable=lieu_naissance).grid(row=3, column=1)  
 
 #adresse label and url entry box
 adresseLabel = Label(tkWindow, text="Adresse (n° et rue) :", wraplength=450).grid(sticky='e', row=4, column=0)  
-adresse = StringVar(value='17 rue du Sergent Hoff')
+adresse = StringVar()
 adresseEntry = Entry(tkWindow, textvariable=adresse).grid(row=4, column=1)
 
 #cp label and url entry box
 cpLabel = Label(tkWindow, text="Code postal :", wraplength=450).grid(sticky='e', row=5, column=0)  
-cp = StringVar(value='94170')
+cp = StringVar()
 cpEntry = Entry(tkWindow, textvariable=cp).grid(row=5, column=1)
 
 #ville label and url entry box
 villeLabel = Label(tkWindow, text="Ville :", wraplength=450).grid(sticky='e', row=6, column=0)
-ville = StringVar(value='Le Perreux-sur-Marne')
+ville = StringVar()
 villeEntry = Entry(tkWindow, textvariable=ville).grid(row=6, column=1) 
 
 #travail tick
@@ -148,6 +149,6 @@ validateLogin = partial(validateLogin, tkWindow, prenom, nom, date_naissance, li
 blankLabel = Label(tkWindow, text="").grid(row=16, column=0)
 
 #login button
-loginButton = Button(tkWindow, text="Login", command=validateLogin).grid(sticky='e', row=17, column=0)  
+loginButton = Button(tkWindow, text="Générer", command=validateLogin).grid(sticky='e', row=17, column=0)  
 
 tkWindow.mainloop()
