@@ -82,6 +82,10 @@ app = flask.Flask(__name__)
 os.system('rm -rf results/')
 os.system('mkdir results/')
 
+@app.errorhandler(500)
+def server_internal_error():
+    return flask.send_file("500.pdf", mimetype='application/pdf')
+
 @app.route("/test")
 def test():
     print(f"/test - {flask.request.remote_addr}")
