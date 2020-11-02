@@ -4,4 +4,6 @@ Générateur d'attestation de déplacement dérogatoire pour le deuxième confin
 Fonctionne à l'aide d'un serveur distant (communication via le protocole `HTTP`). La mise en page des attestations générées est identique aux attestations numériques officielles.  
 Développé en `Python` à l'aide des modules `flask`, `waitress`, `requests`, `tkinter`, `qrcode`, `pyinstaller` et `auto-py-to-exe`.
   
-Retrouvez nous sur Twitter : https://twitter.com/FLA_Coding
+Retrouvez nous sur Twitter : https://twitter.com/FLA_Coding  
+  
+*FLA Coding n'est en rien affilié avec le Gouvernement Français dans la réalisation de cette application.*
