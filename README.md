@@ -6,4 +6,4 @@ Développé en `Python` à l'aide des modules `flask`, `waitress`, `requests`, `
   
 Retrouvez nous sur Twitter : https://twitter.com/FLA_Coding  
   
-*FLA Coding n'est en rien affilié avec le Gouvernement Français dans la réalisation de cette application.*
+*FLA Coding n'est en rien affilié avec le gouvernement français dans la réalisation de cette application.*
