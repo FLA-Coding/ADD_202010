@@ -104,6 +104,13 @@ if cache_dir.is_dir() == True:
         ville1 = ''
 else:
     os.system(f"mkdir {appdata}\\add_202010")
+    prenom1 = ''
+    nom1 = ''
+    date_naissance1 = ''
+    lieu_naissance1 = ''
+    adresse1 = ''
+    cp1 = ''
+    ville1 = ''
 
 #window
 tkWindow = Tk()  
