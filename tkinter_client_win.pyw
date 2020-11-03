@@ -114,7 +114,7 @@ else:
 
 #window
 tkWindow = Tk()  
-tkWindow.geometry('585x580')  
+tkWindow.geometry('595x595')  
 tkWindow.resizable(width=True, height=True)
 tkWindow.title('Générateur d\'attestation de déplacement dérogatoire')
 
