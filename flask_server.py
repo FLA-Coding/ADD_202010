@@ -1,6 +1,5 @@
 import flask, os
 import weasyprint
-from waitress import serve
 from datetime import datetime
 
 def prepare_html(creation, nom, prenom, date_naissance, lieu_naissance, ville, adresse, date_sortie, heure_sortie, motifs, file_name_gen):
@@ -124,4 +123,4 @@ def generate():
     return flask.send_file(f"results/{file_name_gen}.pdf", mimetype='application/pdf')
 
 if __name__ == "__main__":
-    serve(app, host="0.0.0.0", port=36500)
+    app.run(host='0.0.0.0', port=36500)

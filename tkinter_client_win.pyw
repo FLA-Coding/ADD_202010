@@ -57,11 +57,11 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
         else:
             date = f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}"
             heure = f"{datetime.today().hour}:{datetime.today().minute}"
-        url = 'http://82.65.106.58:36500/generate'
+        url = 'https://82.65.106.58:36500/generate'
         content = {"prenom": prenom, "nom": nom, "date_naissance": date_naissance, "lieu_naissance": lieu_naissance, "adresse": adresse, "ville": ville, "cp": cp, "date_sortie": date, "heure_sortie": heure, "motifs": liste_motifs}
         headers = {"Content-Type": "application/json"}
         content = json.dumps(content)
-        x = requests.get(url, data=content, headers=headers)
+        x = requests.get(url, data=content, headers=headers, verify=False)
         home = os.getenv('USERPROFILE')
         appdata = os.getenv('APPDATA')
         open(f"{home}\\Desktop\\attestation_{datetime.today().hour}h{datetime.today().minute}.pdf", 'wb').write(x.content)
