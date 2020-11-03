@@ -57,11 +57,11 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
         else:
             date = f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}"
             heure = f"{datetime.today().hour}:{datetime.today().minute}"
-        url = 'https://82.65.106.58:36500/generate'
+        url = 'https://fla-coding.freeboxos.fr:36500/generate'
         content = {"prenom": prenom, "nom": nom, "date_naissance": date_naissance, "lieu_naissance": lieu_naissance, "adresse": adresse, "ville": ville, "cp": cp, "date_sortie": date, "heure_sortie": heure, "motifs": liste_motifs}
         headers = {"Content-Type": "application/json"}
         content = json.dumps(content)
-        x = requests.get(url, data=content, headers=headers, verify=False)
+        x = requests.get(url, data=content, headers=headers)
         home = os.getenv('HOME')
         open(f"{home}/Desktop/attestation_{datetime.today().hour}h{datetime.today().minute}.pdf", 'wb').write(x.content)
         messagebox.showinfo("Sauvegardé", f"L'attestation a bien été sauvegardée sur votre bureau sous le nom « attestation_{datetime.today().hour}h{datetime.today().minute}.pdf ».")
