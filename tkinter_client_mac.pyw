@@ -45,19 +45,18 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
         liste_motifs.append("missions")
     if enfants == 1:
         liste_motifs.append("enfants")
-    #try:
-    if dh_options == "Personnalisées":
-        date = simpledialog.askstring('Date', 'Veuillez entrer la date (JJ/MM/AAAA).')
-        heure = simpledialog.askstring('Heure', 'Veuillez entrer l\'heure (HH:MM).')
-    elif dh_options == "Ajouter un délai":
-        delai = simpledialog.askstring('Délai', 'Veuillez entrer le délai, en minutes.')
-        date_et_heure = datetime.today() + timedelta(minutes=int(delai))
-        date = f"{date_et_heure.day}/{date_et_heure.month}/{date_et_heure.year}"
-        heure = f"{date_et_heure.hour}:{date_et_heure.minute}"
-    else:
-        date = f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}"
-        heure = f"{datetime.today().hour}:{datetime.today().minute}"
     try:
+        if dh_options == "Personnalisées":
+            date = simpledialog.askstring('Date', 'Veuillez entrer la date (JJ/MM/AAAA).')
+            heure = simpledialog.askstring('Heure', 'Veuillez entrer l\'heure (HH:MM).')
+        elif dh_options == "Ajouter un délai":
+            delai = simpledialog.askstring('Délai', 'Veuillez entrer le délai, en minutes.')
+            date_et_heure = datetime.today() + timedelta(minutes=int(delai))
+            date = f"{date_et_heure.day}/{date_et_heure.month}/{date_et_heure.year}"
+            heure = f"{date_et_heure.hour}:{date_et_heure.minute}"
+        else:
+            date = f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}"
+            heure = f"{datetime.today().hour}:{datetime.today().minute}"
         url = 'http://82.65.106.58:36500/generate'
         content = {"prenom": prenom, "nom": nom, "date_naissance": date_naissance, "lieu_naissance": lieu_naissance, "adresse": adresse, "ville": ville, "cp": cp, "date_sortie": date, "heure_sortie": heure, "motifs": liste_motifs}
         headers = {"Content-Type": "application/json"}
@@ -199,7 +198,7 @@ enfants = IntVar()
 Checkbutton(tkWindow, variable=enfants).grid(row=15, column=1)
 
 #Date & heure de sortie
-dh_optionsLabel = Label(tkWindow, text="Date & heure de sortie :", wraplength=600).grid(sticky='e', row=16, column=0)  
+dh_optionsLabel = Label(tkWindow, text="Date et heure de sortie :", wraplength=600).grid(sticky='e', row=16, column=0)  
 listeOptions=["Actuelles", "Personnalisées", "Ajouter un délai"]
 dh_options = ttk.Combobox(tkWindow, values=listeOptions, state="readonly")
 dh_options.grid(row=16, column=1)

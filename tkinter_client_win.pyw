@@ -199,7 +199,7 @@ enfants = IntVar()
 Checkbutton(tkWindow, variable=enfants).grid(row=15, column=1)
 
 #Date & heure de sortie
-dh_optionsLabel = Label(tkWindow, text="Date & heure de sortie :", wraplength=600).grid(sticky='e', row=16, column=0)  
+dh_optionsLabel = Label(tkWindow, text="Date et heure de sortie :", wraplength=600).grid(sticky='e', row=16, column=0)  
 listeOptions=["Actuelles", "Personnalisées", "Ajouter un délai"]
 dh_options = ttk.Combobox(tkWindow, values=listeOptions, state="readonly")
 dh_options.grid(row=16, column=1)
