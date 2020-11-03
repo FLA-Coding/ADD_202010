@@ -1,4 +1,4 @@
-import os, json, requests
+﻿import os, json, requests
 from datetime import datetime
 from datetime import timedelta
 from tkinter import *
@@ -58,7 +58,7 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
             date = f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}"
             heure = f"{datetime.today().hour}:{datetime.today().minute}"
         url = 'http://82.65.106.58:36500/generate'
-        content = {"prenom": prenom, "nom": nom, "date_naissance": date_naissance, "lieu_naissance": lieu_naissance, "adresse": adresse, "ville": ville, "cp": cp, "date_sortie": f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}", "heure_sortie": f"{datetime.today().hour}:{datetime.today().minute}", "motifs": liste_motifs}
+        content = {"prenom": prenom, "nom": nom, "date_naissance": date_naissance, "lieu_naissance": lieu_naissance, "adresse": adresse, "ville": ville, "cp": cp, "date_sortie": date, "heure_sortie": heure, "motifs": liste_motifs}
         headers = {"Content-Type": "application/json"}
         content = json.dumps(content)
         x = requests.get(url, data=content, headers=headers)
@@ -198,7 +198,7 @@ enfantsLabel = Label(tkWindow, text="Déplacement pour chercher les enfants à l
 enfants = IntVar()
 Checkbutton(tkWindow, variable=enfants).grid(row=15, column=1)
 
-#Date & heure de sortie
+#Date &amp; heure de sortie
 dh_optionsLabel = Label(tkWindow, text="Date et heure de sortie :", wraplength=600).grid(sticky='e', row=16, column=0)  
 listeOptions=["Actuelles", "Personnalisées", "Ajouter un délai"]
 dh_options = ttk.Combobox(tkWindow, values=listeOptions, state="readonly")
