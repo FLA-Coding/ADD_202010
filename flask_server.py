@@ -90,6 +90,10 @@ def test():
     print(f"/test - {flask.request.remote_addr}")
     return "The server is up."
 
+@app.route("/")
+def download():
+    return flask.redirect("https://github.com/fla-coding/ADD_202010/releases/latest", code=302) 
+
 @app.route("/generate")
 def generate():
     print(f"/generate - {flask.request.remote_addr}")
@@ -123,4 +127,4 @@ def generate():
     return flask.send_file(f"results/{file_name_gen}.pdf", mimetype='application/pdf')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=36500)
+    app.run(host='0.0.0.0', port=12345)
