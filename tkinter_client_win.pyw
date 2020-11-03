@@ -47,15 +47,47 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
         content = json.dumps(content)
         x = requests.get(url, data=content, headers=headers)
         home = os.getenv('USERPROFILE')
+        appdata = os.getenv('APPDATA')
         open(f"{home}\\Desktop\\attestation_{datetime.today().hour}h{datetime.today().minute}.pdf", 'wb').write(x.content)
-        messagebox.showinfo("Sauvegardé", f"L'attestation a bien été sauvegardée sur votre bureau sous le nom « attestation_{datetime.today().hour}h{datetime.today().minute}.pdf »")
+        messagebox.showinfo("Sauvegardé", f"L'attestation a bien été sauvegardée sur votre bureau sous le nom « attestation_{datetime.today().hour}h{datetime.today().minute}.pdf ».")
+        try:
+            elements = {'prenom': prenom, 'nom': nom, 'date_naissance': date_naissance, 'lieu_naissance': lieu_naissance, 'adresse': adresse, 'cp': cp, 'ville': ville}
+            elements = json.dumps(elements)
+            with open(f"{appdata}\\add_202010\\preremplissage.json", "w") as preremplissage:
+                preremplissage.write(elements)
+        except:
+            pass
         tkWindow.destroy()
     except:
         messagebox.showerror("Erreur", "Une erreur est survenue.")
         tkWindow.destroy()
 
 
-
+#Tentative de préremplissage
+appdata = os.getenv('APPDATA')
+cache_dir = Path(f"{appdata}\\add_202010")
+if cache_dir.is_dir() == True:
+    try:
+        with open(f"{appdata}\\add_202010\\preremplissage.json", "r") as preremplissage:
+            elements = preremplissage.read()
+        elements = json.loads(elements)
+        prenom1 = elements['prenom']
+        nom1 = elements['nom']
+        date_naissance1 = elements['date_naissance']
+        lieu_naissance1 = elements['lieu_naissance']
+        adresse1 = elements['adresse']
+        cp1 = elements['cp']
+        ville1 = elements['ville']
+    except:
+        prenom1 = ''
+        nom1 = ''
+        date_naissance1 = ''
+        lieu_naissance1 = ''
+        adresse1 = ''
+        cp1 = ''
+        ville1 = ''
+else:
+    os.system(f"mkdir {appdata}\\add_202010")
 
 #window
 tkWindow = Tk()  
@@ -65,37 +97,37 @@ tkWindow.title('Générateur d\'attestation de déplacement dérogatoire')
 
 #prenom label and text entry box
 prenomLabel = Label(tkWindow, text="Prénom :", wraplength=450).grid(sticky='e', row=0, column=0)
-prenom = StringVar()
+prenom = StringVar(value=prenom1)
 prenomEntry = Entry(tkWindow, textvariable=prenom).grid(row=0, column=1)  
 
 #nom label and password entry box
 nomLabel = Label(tkWindow, text="Nom :", wraplength=450).grid(sticky='e', row=1, column=0)
-nom = StringVar()
+nom = StringVar(value=nom1)
 nomEntry = Entry(tkWindow, textvariable=nom).grid(row=1, column=1)  
 
 #date_naissance label and url entry box
 date_naissanceLabel = Label(tkWindow, text="Date de naissance (JJ/MM/AAAA) :", wraplength=450).grid(sticky='e', row=2, column=0)  
-date_naissance = StringVar()
+date_naissance = StringVar(value=date_naissance1)
 date_naissanceEntry = Entry(tkWindow, textvariable=date_naissance).grid(row=2, column=1)  
 
 #lieu_naissance label and url entry box
 lieu_naissanceLabel = Label(tkWindow, text="Lieu de naissance :", wraplength=450).grid(sticky='e', row=3, column=0)  
-lieu_naissance = StringVar()
+lieu_naissance = StringVar(value=lieu_naissance1)
 lieu_naissanceEntry = Entry(tkWindow, textvariable=lieu_naissance).grid(row=3, column=1)  
 
 #adresse label and url entry box
 adresseLabel = Label(tkWindow, text="Adresse (n° et rue) :", wraplength=450).grid(sticky='e', row=4, column=0)  
-adresse = StringVar()
+adresse = StringVar(value=adresse1)
 adresseEntry = Entry(tkWindow, textvariable=adresse).grid(row=4, column=1)
 
 #cp label and url entry box
 cpLabel = Label(tkWindow, text="Code postal :", wraplength=450).grid(sticky='e', row=5, column=0)  
-cp = StringVar()
+cp = StringVar(value=cp1)
 cpEntry = Entry(tkWindow, textvariable=cp).grid(row=5, column=1)
 
 #ville label and url entry box
 villeLabel = Label(tkWindow, text="Ville :", wraplength=450).grid(sticky='e', row=6, column=0)
-ville = StringVar()
+ville = StringVar(value=ville1)
 villeEntry = Entry(tkWindow, textvariable=ville).grid(row=6, column=1) 
 
 #travail tick
