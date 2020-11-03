@@ -1,11 +1,14 @@
 import os, json, requests
 from datetime import datetime
+from datetime import timedelta
 from tkinter import *
 from tkinter import messagebox
+from tkinter import simpledialog
+from tkinter import ttk
 from functools import partial
 from pathlib import Path
 
-def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse, cp, ville, travail, achats, sante, famille, handicap, sport_animaux, convocation, missions, enfants):
+def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse, cp, ville, travail, achats, sante, famille, handicap, sport_animaux, convocation, missions, enfants, dh_options):
     prenom = prenom.get()
     nom = nom.get()
     date_naissance = date_naissance.get()
@@ -22,6 +25,7 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
     convocation = convocation.get()
     missions = missions.get()
     enfants = enfants.get()
+    dh_options = dh_options.get()
     liste_motifs = []
     if travail == 1:
         liste_motifs.append("travail")
@@ -42,14 +46,25 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
     if enfants == 1:
         liste_motifs.append("enfants") 
     try:
+        if dh_options == "Personnalisées":
+            date = simpledialog.askstring('Date', 'Veuillez entrer la date (JJ/MM/AAAA).')
+            heure = simpledialog.askstring('Heure', 'Veuillez entrer l\'heure (HH:MM).')
+        elif dh_options == "Ajouter un délai":
+            delai = simpledialog.askstring('Délai', 'Veuillez entrer le délai, en minutes.')
+            date_et_heure = datetime.today() + timedelta(minutes=int(delai))
+            date = f"{date_et_heure.day}/{date_et_heure.month}/{date_et_heure.year}"
+            heure = f"{date_et_heure.hour}:{date_et_heure.minute}"
+        else:
+            date = f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}"
+            heure = f"{datetime.today().hour}:{datetime.today().minute}"
         url = 'http://82.65.106.58:36500/generate'
-        content = {"prenom": prenom, "nom": nom, "date_naissance": date_naissance, "lieu_naissance": lieu_naissance, "adresse": adresse, "ville": ville, "cp": cp, "date_sortie": f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}", "heure_sortie": f"{datetime.today().hour}:{datetime.today().minute}", "motifs": liste_motifs}
+        content = {"prenom": prenom, "nom": nom, "date_naissance": date_naissance, "lieu_naissance": lieu_naissance, "adresse": adresse, "ville": ville, "cp": cp, "date_sortie": date, "heure_sortie": heure, "motifs": liste_motifs}
         headers = {"Content-Type": "application/json"}
         content = json.dumps(content)
         x = requests.get(url, data=content, headers=headers)
         home = os.getenv('HOME')
         open(f"{home}/Desktop/attestation_{datetime.today().hour}h{datetime.today().minute}.pdf", 'wb').write(x.content)
-        messagebox.showinfo("Sauvegardé", f"L'attestation a bien été sauvegardée sur votre bureau sous le nom « attestation_{datetime.today().hour}h{datetime.today().minute}.pdf »")
+        messagebox.showinfo("Sauvegardé", f"L'attestation a bien été sauvegardée sur votre bureau sous le nom « attestation_{datetime.today().hour}h{datetime.today().minute}.pdf ».")
         try:
             elements = {'prenom': prenom, 'nom': nom, 'date_naissance': date_naissance, 'lieu_naissance': lieu_naissance, 'adresse': adresse, 'cp': cp, 'ville': ville}
             elements = json.dumps(elements)
@@ -92,7 +107,7 @@ else:
 
 #window
 tkWindow = Tk()  
-tkWindow.geometry('600x650')  
+tkWindow.geometry('610x670')  
 tkWindow.resizable(width=True, height=True)
 tkWindow.title('Générateur d\'attestation de déplacement dérogatoire')
 
@@ -176,12 +191,19 @@ enfantsLabel = Label(tkWindow, text="Déplacement pour chercher les enfants à l
 enfants = IntVar()
 Checkbutton(tkWindow, variable=enfants).grid(row=15, column=1)
 
-validateLogin = partial(validateLogin, tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse, cp, ville, travail, achats, sante, famille, handicap, sport_animaux, convocation, missions, enfants)
+#Date & heure de sortie
+dh_optionsLabel = Label(tkWindow, text="Date & heure de sortie :", wraplength=600).grid(sticky='e', row=16, column=0)  
+listeOptions=["Actuelles", "Personnalisées", "Ajouter un délai"]
+dh_options = ttk.Combobox(tkWindow, values=listeOptions, state="readonly")
+dh_options.grid(row=16, column=1)
+dh_options.current(0)
 
 #blank space
-blankLabel = Label(tkWindow, text="").grid(row=16, column=0)
+blankLabel = Label(tkWindow, text="").grid(row=17, column=0)
+
+validateLogin = partial(validateLogin, tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse, cp, ville, travail, achats, sante, famille, handicap, sport_animaux, convocation, missions, enfants, dh_options)
 
 #login button
-loginButton = Button(tkWindow, text="Générer", command=validateLogin).grid(sticky='e', row=17, column=0)  
+loginButton = Button(tkWindow, text="Générer", command=validateLogin).grid(sticky='e', row=18, column=0)  
 
 tkWindow.mainloop()
