@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'dart:async';
 
 void main() => runApp(MyApp());
 
@@ -6,7 +7,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTitle = "Générateur d'attestation";
-
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
@@ -58,9 +58,15 @@ class MyCustomFormState extends State<MyCustomForm> {
   var tmotif7 = "Convocation judiciaire ou administrative et pour se rendre dans un service public.";
   var tmotif8 = "Participation à des missions d’intérêt général sur demande de l’autorité administrative.";
   var tmotif9 = "Déplacement pour chercher les enfants à l’école et à l’occasion de leurs activités périscolaires.";
+  final prenomController = TextEditingController();
+  final nomController = TextEditingController();
+  final dnController = TextEditingController();
+  final lnController = TextEditingController();
+  final adresseController = TextEditingController();
+  final cpController = TextEditingController();
+  final villeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
     return Form(
       key: _formKey,
       child: SingleChildScrollView(
@@ -73,84 +79,91 @@ class MyCustomFormState extends State<MyCustomForm> {
               labelText: "Prénom",
               border: const OutlineInputBorder(),
               ),
-            validator: (value) {
-              if (value.isEmpty) {
+            validator: (value1) {
+              if (value1.isEmpty) {
                 return "Merci d'entrer votre prénom.";
               }
               return null;
             },
-          ),
+            controller: prenomController,
+            ),
           TextFormField(
             decoration: InputDecoration(
               labelText: "Nom",
               border: const OutlineInputBorder(),
               ),
-            validator: (value) {
-              if (value.isEmpty) {
+            validator: (value2) {
+              if (value2.isEmpty) {
                 return "Merci d'entrer votre nom.";
               }
               return null;
             },
+            controller: nomController,
           ),
           TextFormField(
             decoration: InputDecoration(
               labelText: "Date de naissance (JJ/MM/AAAA)",
               border: const OutlineInputBorder(),
               ),
-            validator: (value) {
-              if (value.isEmpty) {
+            validator: (value3) {
+              if (value3.isEmpty) {
                 return "Merci d'entrer votre date de naissance.";
               }
               return null;
             },
+            controller: dnController,
           ),
           TextFormField(
             decoration: InputDecoration(
               labelText: "Lieu de naissance",
               border: const OutlineInputBorder(),
               ),
-            validator: (value) {
-              if (value.isEmpty) {
+            validator: (value4) {
+              if (value4.isEmpty) {
                 return "Merci d'entrer votre lieu de naissance.";
               }
               return null;
             },
+            controller: lnController,
           ),
           TextFormField(
             decoration: InputDecoration(
               labelText: "Adresse (n° et rue)",
               border: const OutlineInputBorder(),
               ),
-            validator: (value) {
-              if (value.isEmpty) {
+            validator: (value5) {
+              if (value5.isEmpty) {
                 return "Merci d'entrer votre adresse.";
               }
               return null;
             },
+            controller: adresseController,
           ),
           TextFormField(
             decoration: InputDecoration(
               labelText: "Code postal",
               border: const OutlineInputBorder(),
               ),
-            validator: (value) {
-              if (value.isEmpty) {
+            validator: (value6) {
+              if (value6.isEmpty) {
                 return "Merci d'entrer votre code postal.";
               }
               return null;
             },
+            controller: cpController,
           ),
           TextFormField(
             decoration: InputDecoration(
               labelText: "Ville",
               border: const OutlineInputBorder(),
               ),
-            validator: (value) {
-              if (value.isEmpty) {
+            validator: (value7) {
+              if (value7.isEmpty) {
                 return "Merci d'entrer votre ville.";
               }
               return null;
             },
+            controller: villeController,
           ),
           CheckboxListTile(
             title: Text(tmotif1),
@@ -237,7 +250,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             value: _checked9,
             onChanged: (bool value) { 
                         setState(() {
-                          _checked9 = value; 
+                          _checked9 = value;
                         }); 
                       },
             controlAffinity: ListTileControlAffinity.platform,
@@ -246,6 +259,23 @@ class MyCustomFormState extends State<MyCustomForm> {
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: ElevatedButton(
               onPressed: () {
+                print(Text(prenomController.text));
+                print(Text(nomController.text));
+                print(Text(dnController.text));
+                print(Text(adresseController.text));
+                print(Text(cpController.text));
+                print(Text(villeController.text));
+                print(_checked1);
+                print(_checked2);
+                print(_checked3);
+                print(_checked4);
+                print(_checked5);
+                print(_checked6);
+                print(_checked7);
+                print(_checked8);
+                print(_checked9);
+                //Checks accessibles via les variables (_checked1, _checked2, etc...)
+                //Champs de texte accessibles via leurs fichiers respectifs (prenom.gadd, nom.gadd, etc...)
                 // Validate returns true if the form is valid, or false
                 // otherwise.
                 if (_formKey.currentState.validate()) {
@@ -262,4 +292,5 @@ class MyCustomFormState extends State<MyCustomForm> {
     ),
     );
   }
+
 }
