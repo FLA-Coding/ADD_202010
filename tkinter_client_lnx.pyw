@@ -57,7 +57,7 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
         else:
             date = f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}"
             heure = f"{datetime.today().hour}:{datetime.today().minute}"
-        url = 'http://localhost:36500/generate'
+        url = 'https://fla-coding.freeboxos.fr:36500/generate'
         content = {"prenom": prenom, "nom": nom, "date_naissance": date_naissance, "lieu_naissance": lieu_naissance, "adresse": adresse, "ville": ville, "cp": cp, "date_sortie": date, "heure_sortie": heure, "motifs": liste_motifs}
         headers = {"Content-Type": "application/json"}
         content = json.dumps(content)
