@@ -6,7 +6,4 @@ Développé en `Python` à l'aide des modules `flask`, `gunicorn`, `requests`, `
   
 Retrouvez nous sur Twitter : https://twitter.com/FLA_Coding  
   
-*FLA Coding n'est en rien affilié avec le gouvernement français dans la réalisation de cette application et ne peut en aucun cas être tenu responsable dans le cas où l'attestation générée ne serait pas valide.*  
-  
-  
-Nous sommes en train de construire une nouvelle version de l'application, compatible mobile, en langage Dart, avec Flutter.
+*FLA Coding n'est en rien affilié avec le gouvernement français dans la réalisation de cette application et ne peut en aucun cas être tenu responsable dans le cas où l'attestation générée ne serait pas valide.*
