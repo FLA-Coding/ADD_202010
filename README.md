@@ -6,4 +6,6 @@ Développé en `Python` à l'aide des modules `flask`, `gunicorn`, `requests`, `
   
 Retrouvez nous sur Twitter : https://twitter.com/FLA_Coding  
   
+<img src="https://github.com/fla-coding/ADD_202010/blob/main/disclaimer_tweet.png" width="300">
+  
 *FLA Coding n'est en rien affilié avec le gouvernement français dans la réalisation de cette application et ne peut en aucun cas être tenu responsable dans le cas où l'attestation générée ne serait pas valide.*
