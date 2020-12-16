@@ -8,7 +8,7 @@ from tkinter import ttk
 from functools import partial
 from pathlib import Path
 
-def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse, cp, ville, travail, achats, sante, famille, handicap, sport_animaux, convocation, missions, enfants, dh_options):
+def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse, cp, ville, travail, sante, famille, handicap, convocation, missions, transits, animaux, dh_options):
     prenom = prenom.get()
     nom = nom.get()
     date_naissance = date_naissance.get()
@@ -17,34 +17,31 @@ def validateLogin(tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse
     cp = cp.get()
     ville = ville.get()
     travail = travail.get()
-    achats = achats.get()
     sante = sante.get()
     famille = famille.get()
     handicap = handicap.get()
-    sport_animaux = sport_animaux.get()
     convocation = convocation.get()
     missions = missions.get()
-    enfants = enfants.get()
+    transits = transits.get()
+    animaux = animaux.get()
     dh_options = dh_options.get()
     liste_motifs = []
     if travail == 1:
         liste_motifs.append("travail")
-    if achats == 1:
-        liste_motifs.append("achats_culturel_cultuel")
     if sante == 1:
         liste_motifs.append("sante")
     if famille == 1:
         liste_motifs.append("famille")
     if handicap == 1:
         liste_motifs.append("handicap")
-    if sport_animaux == 1:
-        liste_motifs.append("sport_animaux")
     if convocation == 1:
         liste_motifs.append("convocation")
     if missions == 1:
         liste_motifs.append("missions")
-    if enfants == 1:
-        liste_motifs.append("enfants") 
+    if transits == 1:
+        liste_motifs.append("transits") 
+    if animaux == 1:
+        liste_motifs.append("animaux") 
     try:
         if dh_options == "Personnalisées":
             date = simpledialog.askstring('Date', 'Veuillez entrer la date (JJ/MM/AAAA).')
@@ -114,7 +111,7 @@ else:
 
 #window
 tkWindow = Tk()  
-tkWindow.geometry('610x670')  
+tkWindow.geometry('610x520')  
 tkWindow.resizable(width=True, height=True)
 tkWindow.title('Générateur d\'attestation de déplacement dérogatoire')
 
@@ -154,63 +151,58 @@ ville = StringVar(value=ville1)
 villeEntry = Entry(tkWindow, textvariable=ville).grid(row=6, column=1) 
 
 #travail tick
-travailLabel = Label(tkWindow, text="Déplacements entre le domicile et le lieu d’exercice de l’activité professionnelle ou un établissement d’enseignement ou de formation ; déplacements professionnels ne pouvant être différés ; déplacements pour un concours ou un examen", wraplength=450).grid(sticky='e', row=7, column=0) 
+travailLabel = Label(tkWindow, text="Déplacements entre le domicile et le lieu d'exercice de l'activité professionnelle ou le lieu d'enseignement et de formation, déplacements professionnels ne pouvant être différés", wraplength=450).grid(sticky='e', row=7, column=0) 
 travail = IntVar()
 Checkbutton(tkWindow, variable=travail).grid(row=7, column=1)
 
-#achats_culturel_cultuel tick
-achatsLabel = Label(tkWindow, text="Déplacements pour se rendre dans un établissement culturel autorisé ou un lieu de culte ; déplacements pour effectuer des achats de biens, pour des services dont la fourniture est autorisée, pour les retraits de commandes et les livraisons à domicile", wraplength=450).grid(sticky='e', row=8, column=0) 
-achats = IntVar()
-Checkbutton(tkWindow, variable=achats).grid(row=8, column=1)
-
 #sante tick
-santeLabel = Label(tkWindow, text="Consultations, examens et soins ne pouvant être assurés à distance et achats de médicaments", wraplength=450).grid(sticky='e', row=9, column=0) 
+santeLabel = Label(tkWindow, text="Déplacements pour des consultations et soins ne pouvant être assurés à distance et ne pouvant être différés ou pour l'achat de produits de santé", wraplength=450).grid(sticky='e', row=8, column=0) 
 sante = IntVar()
-Checkbutton(tkWindow, variable=sante).grid(row=9, column=1)
+Checkbutton(tkWindow, variable=sante).grid(row=8, column=1)
 
 #famille tick
-familleLabel = Label(tkWindow, text="Déplacements pour motif familial impérieux, pour l’assistance aux personnes vulnérables et précaires ou la garde d’enfants", wraplength=450).grid(sticky='e', row=10, column=0) 
+familleLabel = Label(tkWindow, text="Déplacements pour motif familial impérieux, pour l'assistance aux personnes vulnérables ou précaires ou pour la garde d'enfants", wraplength=450).grid(sticky='e', row=9, column=0) 
 famille = IntVar()
-Checkbutton(tkWindow, variable=famille).grid(row=10, column=1)
+Checkbutton(tkWindow, variable=famille).grid(row=9, column=1)
 
 #handicap tick
-handicapLabel = Label(tkWindow, text="Déplacements des personnes en situation de handicap et leur accompagnant", wraplength=450).grid(sticky='e', row=11, column=0) 
+handicapLabel = Label(tkWindow, text="Déplacements des personnes en situation de handicap et de leur accompagnant", wraplength=450).grid(sticky='e', row=10, column=0) 
 handicap = IntVar()
-Checkbutton(tkWindow, variable=handicap).grid(row=11, column=1)
-
-#sport_animaux tick
-sport_animauxLabel = Label(tkWindow, text="Déplacements en plein air ou vers un lieu de plein air, sans changement du lieu de résidence, dans la limite de trois heures quotidiennes et dans un rayon maximal de vingt kilomètres autour du domicile, liés soit à l’activité physique ou aux loisirs individuels, à l’exclusion de toute pratique sportive collective et de toute proximité avec d’autres personnes, soit à la promenade avec les seules personnes regroupées dans un même domicile, soit aux besoins des animaux de compagnie", wraplength=450).grid(sticky='e', row=12, column=0) 
-sport_animaux = IntVar()
-Checkbutton(tkWindow, variable=sport_animaux).grid(row=12, column=1)
+Checkbutton(tkWindow, variable=handicap).grid(row=10, column=1)
 
 #convocation tick
-convocationLabel = Label(tkWindow, text="Convocations judiciaires ou administratives et déplacements pour se rendre dans un service public", wraplength=450).grid(sticky='e', row=13, column=0) 
+convocationLabel = Label(tkWindow, text="Déplacements pour répondre à une convocation judiciaire ou administrative", wraplength=450).grid(sticky='e', row=11, column=0) 
 convocation = IntVar()
-Checkbutton(tkWindow, variable=convocation).grid(row=13, column=1)
+Checkbutton(tkWindow, variable=convocation).grid(row=11, column=1)
 
 #missions tick
-missionsLabel = Label(tkWindow, text="Participation à des missions d’intérêt général sur demande de l’autorité administrative", wraplength=450).grid(sticky='e', row=14, column=0) 
+missionsLabel = Label(tkWindow, text="Déplacements pour participer à des missions d'intérêt général sur demande de l'autorité administrative", wraplength=450).grid(sticky='e', row=12, column=0) 
 missions = IntVar()
-Checkbutton(tkWindow, variable=missions).grid(row=14, column=1)
+Checkbutton(tkWindow, variable=missions).grid(row=12, column=1)
 
-#enfants tick
-enfantsLabel = Label(tkWindow, text="Déplacements pour chercher les enfants à l’école et à l’occasion de leurs activités périscolaires", wraplength=450).grid(sticky='e', row=15, column=0) 
-enfants = IntVar()
-Checkbutton(tkWindow, variable=enfants).grid(row=15, column=1)
+#transits tick
+transitsLabel = Label(tkWindow, text="Déplacements liés à des transits ferroviaires ou aériens pour des déplacements de longues distances", wraplength=450).grid(sticky='e', row=13, column=0) 
+transits = IntVar()
+Checkbutton(tkWindow, variable=transits).grid(row=13, column=1)
+
+#animaux tick
+animauxLabel = Label(tkWindow, text="Déplacements brefs, dans un rayon maximal d'un kilomètre autour du domicile pour les besoins des animaux de compagnie", wraplength=450).grid(sticky='e', row=14, column=0) 
+animaux = IntVar()
+Checkbutton(tkWindow, variable=animaux).grid(row=14, column=1)
 
 #Date & heure de sortie
-dh_optionsLabel = Label(tkWindow, text="Date et heure de sortie :", wraplength=450).grid(sticky='e', row=16, column=0)  
+dh_optionsLabel = Label(tkWindow, text="Date et heure de sortie :", wraplength=450).grid(sticky='e', row=15, column=0)  
 listeOptions=["Actuelles", "Personnalisées", "Ajouter un délai"]
 dh_options = ttk.Combobox(tkWindow, values=listeOptions, state="readonly")
-dh_options.grid(row=16, column=1)
+dh_options.grid(row=15, column=1)
 dh_options.current(0)
 
 #blank space
-blankLabel = Label(tkWindow, text="").grid(row=17, column=0)
+blankLabel = Label(tkWindow, text="").grid(row=16, column=0)
 
-validateLogin = partial(validateLogin, tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse, cp, ville, travail, achats, sante, famille, handicap, sport_animaux, convocation, missions, enfants, dh_options)
+validateLogin = partial(validateLogin, tkWindow, prenom, nom, date_naissance, lieu_naissance, adresse, cp, ville, travail, sante, famille, handicap, convocation, missions, transits, animaux, dh_options)
 
 #login button
-loginButton = Button(tkWindow, text="Générer", command=validateLogin).grid(sticky='e', row=18, column=0)  
+loginButton = Button(tkWindow, text="Générer", command=validateLogin).grid(sticky='e', row=17, column=0)  
 
 tkWindow.mainloop()
