@@ -86,7 +86,7 @@ def test():
 
 @app.route("/")
 def download():
-    return flask.redirect("https://github.com/fla-coding/ADD_202010/releases/latest", code=301) 
+    return flask.redirect("https://fla-coding.freeboxos.fr/", code=301) 
 
 @app.route("/generate")
 def generate():
