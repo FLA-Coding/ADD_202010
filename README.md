@@ -2,7 +2,7 @@
 
 Générateur d'attestation de déplacement dérogatoire pour le couvre-feu démarré le 15 décembre 2020.  
 Fonctionne à l'aide d'un serveur distant (communication via le protocole `HTTPS`, à partir de la version 1.2). La mise en page des attestations générées est identique aux attestations numériques officielles.  
-Développé en `Python` à l'aide des modules `flask`, `gunicorn`, `requests`, `tkinter`, `qrcode`, `weasyprint`, `pyinstaller` et `auto-py-to-exe`.
+Développé en [Python](https://www.python.org/) à l'aide des modules `flask`, `gunicorn`, `requests`, `tkinter`, `qrcode`, `weasyprint`, `pyinstaller` et `auto-py-to-exe`.
   
 Retrouvez nous sur Twitter : https://twitter.com/FLA_Coding  
   
