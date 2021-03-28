@@ -1,6 +1,7 @@
 # Générateur d'attestation de déplacement dérogatoire (depuis octobre 2020)
 
-Générateur d'attestation de déplacement dérogatoire pour le couvre-feu démarré le 15 décembre 2020 (les versions précédentes étaient destinées au confinement d'octobre).  
+Générateur d'attestation de déplacement dérogatoire pour le confinement d'octobre 2020, puis le couvre-feu qui s'en est suivi, jusqu'en mars 2021.  
+**CE PROJET EST À PRÉSENT ABANDONNÉ.**  
 Fonctionne à l'aide d'un serveur distant (communication via le protocole `HTTPS`, à partir de la version 1.2). La mise en page des attestations générées est identique aux attestations numériques officielles.  
 Développé en [Python](https://www.python.org/) à l'aide des modules `flask`, `gunicorn`, `requests`, `tkinter`, `qrcode`, `weasyprint`, `pyinstaller` et `auto-py-to-exe`.
   
